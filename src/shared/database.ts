@@ -1,10 +1,13 @@
-import { Pool } from "pg"
+import { Pool } from "pg";
+import config from "../config";
 
-export const pool = new Pool({ connectionString: "postgresql://neondb_owner:npg_B8GQIqPySz5h@ep-ancient-mountain-a87qo1zk-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require" })
+export const pool = new Pool({
+    connectionString:config.POSTGRES_DB_URL
+});
 
 export const initDb = async () => {
     await pool.query(`
-        CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
@@ -15,6 +18,24 @@ export const initDb = async () => {
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-        
-        `)
-}
+CREATE TABLE IF NOT EXISTS vehicles (
+    id SERIAL PRIMARY KEY,
+    vehicle_name VARCHAR(100) NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('car', 'bike', 'van', 'SUV')),
+    registration_number VARCHAR(50) NOT NULL UNIQUE,
+    daily_rent_price NUMERIC(10, 2) NOT NULL CHECK (daily_rent_price > 0),
+    availability_status VARCHAR(20) NOT NULL CHECK (availability_status IN ('available', 'booked')),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+    id SERIAL PRIMARY KEY,
+    vehicle_id INT REFERENCES vehicles(id) ON DELETE CASCADE,
+    rent_start_date DATE NOT NULL,
+    rent_end_date DATE NOT NULL CHECK (rent_end_date > rent_start_date),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+    `);
+};
