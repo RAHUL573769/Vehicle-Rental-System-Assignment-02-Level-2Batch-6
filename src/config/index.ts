@@ -5,6 +5,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 export default {
     PORT: process.env.PORT as string,
 
-    POSTGRES_DB_URL: process.env.POSTGRES_DB
+    POSTGRES_DB_URL: process.env.POSTGRES_DB,
+    JWT_SECRET: process.env.JWT_SECRET
 
 };
