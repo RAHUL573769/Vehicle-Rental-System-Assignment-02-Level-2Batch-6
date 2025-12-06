@@ -11,6 +11,6 @@ declare global {
 }
 
 export default {
-    PORT: process.env.PORT,
+    PORT: process.env[PORT],
     POSTGRES_DB:process.env.POSTGRES_DB
 };
