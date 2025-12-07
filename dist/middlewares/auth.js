@@ -25,7 +25,6 @@ const auth = (...roles) => {
                     message: "Forbidden: You do not have permission",
                 });
             }
-            next();
         }
         catch (error) {
             return res.status(401).json({
@@ -33,6 +32,7 @@ const auth = (...roles) => {
                 message: "Invalid or expired token",
             });
         }
+        next();
     };
 };
 exports.auth = auth;
