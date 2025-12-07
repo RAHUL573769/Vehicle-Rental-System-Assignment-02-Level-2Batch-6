@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "vehicle_name": "Toyota Corolla",
+        "type": "car",
+        "registration_number": "BD-CA-4521",
+        "daily_rent_price": 2500.00,
+        "availability_status": "available",
+        "created_at": "2025-01-15T10:20:00Z",
+        "updated_at": "2025-01-15T10:20:00Z"
+    },
+    {
+        "id": 2,
+        "vehicle_name": "Honda Civic",
+        "type": "car",
+        "registration_number": "BD-CA-9822",
+        "daily_rent_price": 3200.00,
+        "availability_status": "booked",
+        "created_at": "2025-01-10T08:15:00Z",
+        "updated_at": "2025-01-12T14:10:00Z"
+    },
+    {
+        "id": 3,
+        "vehicle_name": "Yamaha FZ",
+        "type": "bike",
+        "registration_number": "BD-BK-6731",
+        "daily_rent_price": 900.00,
+        "availability_status": "available",
+        "created_at": "2025-01-08T09:45:00Z",
+        "updated_at": "2025-01-08T09:45:00Z"
+    },
+    {
+        "id": 4,
+        "vehicle_name": "Suzuki Gixxer",
+        "type": "bike",
+        "registration_number": "BD-BK-5523",
+        "daily_rent_price": 850.00,
+        "availability_status": "booked",
+        "created_at": "2025-01-05T11:00:00Z",
+        "updated_at": "2025-01-06T11:30:00Z"
+    },
+    {
+        "id": 5,
+        "vehicle_name": "Toyota HiAce",
+        "type": "van",
+        "registration_number": "BD-VN-4421",
+        "daily_rent_price": 4500.00,
+        "availability_status": "available",
+        "created_at": "2025-01-02T12:10:00Z",
+        "updated_at": "2025-01-02T12:10:00Z"
+    },
+    {
+        "id": 6,
+        "vehicle_name": "Nissan Caravan",
+        "type": "van",
+        "registration_number": "BD-VN-9832",
+        "daily_rent_price": 4800.00,
+        "availability_status": "booked",
+        "created_at": "2025-01-04T10:30:00Z",
+        "updated_at": "2025-01-05T13:05:00Z"
+    },
+    {
+        "id": 7,
+        "vehicle_name": "Toyota Land Cruiser",
+        "type": "SUV",
+        "registration_number": "BD-SV-7721",
+        "daily_rent_price": 8500.00,
+        "availability_status": "available",
+        "created_at": "2025-01-01T09:00:00Z",
+        "updated_at": "2025-01-01T09:00:00Z"
+    },
+    {
+        "id": 2,
+        "vehicle_name": "Mitsubishi Pajero",
+        "type": "SUV",
+        "registration_number": "BD-SV-6612",
+        "daily_rent_price": 7800.00,
+        "availability_status": "booked",
+        "created_at": "2025-01-03T08:25:00Z",
+        "updated_at": "2025-01-03T08:25:00Z"
+    },
+    {
+        "id": 8,
+        "vehicle_name": "Mitsubishi Pajero",
+        "type": "SUV",
+        "registration_number": "BD-SV-6612",
+        "daily_rent_price": 7800.00,
+        "availability_status": "booked",
+        "created_at": "2025-01-03T08:25:00Z",
+        "updated_at": "2025-01-03T08:25:00Z"
+    }
+]

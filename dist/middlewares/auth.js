@@ -17,6 +17,12 @@ const auth = (...roles) => {
             const decoded = jsonwebtoken_1.default.verify(token, config_1.default.JWT_SECRET);
             console.log("Decoded", decoded);
             req.user = decoded;
+            if (roles.length && !roles.includes(decoded['role'])) {
+                return res.status(500).json({
+                    error: "unauthorized!!!",
+                });
+            }
+            next();
         }
         catch (error) {
             console.log(error);
