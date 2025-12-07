@@ -24,15 +24,17 @@ const createVehicles = async (req, res, _next) => {
             availability_status
         ];
         const result = await vehicles_services_1.VehicleServices.createVehiclesIntoDb(query, params);
-        res.status(201).json({
+        res.status(200).json({
             success: true,
+            "message": "Vehicle created successfully",
             data: result.rows[0]
         });
     }
     catch (error) {
         res.status(500).json({
-            success: false,
-            error: error.message
+            "success": false,
+            "message": error.message,
+            "errors": error
         });
     }
 };
@@ -40,7 +42,7 @@ const getVehicles = async (_req, res) => {
     try {
         const query = "select  * from vehicles";
         const result = await vehicles_services_1.VehicleServices.getVehiclesFromDb(query);
-        console.log('Getvehicles', result.rows[0]);
+        // console.log('Getvehicles', result.rows[0])
         delete result.rows[0].created_at;
         delete result.rows[0].updated_at;
         res.status(200).json({
@@ -52,37 +54,45 @@ const getVehicles = async (_req, res) => {
     catch (error) {
         res.status(404).json({
             "success": false,
-            "message": "Error description",
+            "message": "No vehicles found",
             "errors": error.message
         });
     }
 };
 const getSingleVehicles = async (req, res) => {
-    const specificVehicleId = req.params["id"];
-    const query = `Select * from vehicles where id= $1`;
-    const result = await vehicles_services_1.VehicleServices.getSingleVehicleFromDb(query, specificVehicleId);
-    res.status(200).json({
-        "success": true,
-        "message": "Vehicles retrieved successfully",
-        "data": result.rows
-    });
+    try {
+        const specificVehicleId = req.params["id"];
+        const query = `Select * from vehicles where id= $1`;
+        const result = await vehicles_services_1.VehicleServices.getSingleVehicleFromDb(query, specificVehicleId);
+        res.status(200).json({
+            "success": true,
+            "message": "Vehicles retrieved successfully",
+            "data": result.rows
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            errors: error.message
+        });
+    }
 };
 const updateVehicles = async (req, res) => {
     try {
         const id = req.params["vehicleId"];
         const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body;
         const query = `
-            UPDATE vehicles 
-            SET 
-                vehicle_name = $1,
-                type = $2,
-                registration_number = $3,
-                daily_rent_price = $4,
-                availability_status = $5,
-                updated_at = NOW()
-            WHERE id = $6
-            RETURNING *;
-        `;
+    UPDATE vehicles
+    SET
+        vehicle_name = $1,
+        type = $2,
+        registration_number = $3,
+        daily_rent_price = $4,
+        availability_status = $5
+    WHERE id = $6
+    RETURNING *;
+`;
         const params = [
             vehicle_name,
             type,
@@ -94,12 +104,14 @@ const updateVehicles = async (req, res) => {
         const result = await vehicles_services_1.VehicleServices.updateVehiclesInDb(query, params);
         res.status(200).json({
             success: true,
-            data: result
+            "message": "Vehicle updated successfully",
+            data: result.rows[0]
         });
     }
     catch (error) {
         res.status(500).json({
             success: false,
+            "message": error.message,
             error: error.message
         });
     }
