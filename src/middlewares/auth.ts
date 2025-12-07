@@ -2,30 +2,38 @@ import { NextFunction, Request, Response } from "express"
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from "../config";
 
+
+
 export const auth = (...roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-
-
+    return (req: Request, res: Response, next: NextFunction): any => {
         try {
-            const token = req.headers.authorization
-            // console.log('Tk', token)
+            const token = req.headers.authorization;
+
             if (!token) {
-                res.send("You are  not allowed")
-            }
-
-            const decoded = jwt.verify(token as string, config.JWT_SECRET) as JwtPayload
-            console.log("Decoded", decoded)
-            req.user = decoded
-
-            if (roles.length && !roles.includes(decoded['role'] as string)) {
-                return res.status(500).json({
-                    error: "unauthorized!!!",
+                return res.status(401).json({
+                    success: false,
+                    message: "Unauthorized: No token provided",
                 });
             }
-            next()
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
-}
+            const decoded = jwt.verify(token, config.JWT_SECRET) as JwtPayload;
+
+            req.user = decoded;
+
+            // Role checking
+            if (roles.length > 0 && !roles.includes(decoded['role'])) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Forbidden: You do not have permission",
+                });
+            }
+
+            next();
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid or expired token",
+            });
+        }
+    };
+};

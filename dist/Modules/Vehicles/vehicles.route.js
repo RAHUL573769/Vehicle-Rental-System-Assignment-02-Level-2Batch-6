@@ -8,19 +8,10 @@ const express_1 = __importDefault(require("express"));
 const database_1 = require("../../shared/database");
 const auth_1 = require("../../middlewares/auth");
 const auth_types_1 = require("../../types/auth.types");
+const vehicles_controllers_1 = require("./vehicles.controllers");
 const router = express_1.default.Router();
-router.post("/v1/vehicles", (0, auth_1.auth)(auth_types_1.UserRoles.admin), async (req, res) => {
-    // console.log(...req.body)
-    const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body;
-    console.log("Vehicle Data", vehicle_name);
-    const query = `INSERT INTO vehicles(vehicle_name ,type ,registration_number,daily_rent_price,availability_status)VALUES ($1,$2,$3,$4,$5)RETURNING * `;
-    const result = await database_1.pool.query(query, [vehicle_name, type, registration_number, daily_rent_price, availability_status]);
-    // console.log(result)
-    const data = result.rows[0];
-    console.log(data);
-    res.status(200).json({ data });
-});
-router.get("/v1/vehicles", async (req, res) => {
+router.post("/v1/vehicles", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.createVehicles);
+router.get("/v1/vehicles", async (_req, res) => {
     const query = "select  * from vehicles";
     const result = await database_1.pool.query(query);
     console.log(result.rows[0]);

@@ -2,26 +2,13 @@ import express, { Request, Response } from 'express'
 import { pool } from '../../shared/database'
 import { auth } from '../../middlewares/auth'
 import { UserRoles } from '../../types/auth.types'
+import { VehicleController } from './vehicles.controllers'
 
 
 const router = express.Router()
-router.post("/v1/vehicles", auth(UserRoles.admin), async (req: Request, res: Response) => {
-    // console.log(...req.body)
-    const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body
-    console.log("Vehicle Data", vehicle_name)
+router.post("/v1/vehicles", auth(UserRoles.admin), VehicleController.createVehicles)
 
-    const query = `INSERT INTO vehicles(vehicle_name ,type ,registration_number,daily_rent_price,availability_status)VALUES ($1,$2,$3,$4,$5)RETURNING * `
-    const result = await pool.query(query, [vehicle_name, type, registration_number, daily_rent_price, availability_status])
-    // console.log(result)
-    const data = result.rows[0]
-
-    console.log(data)
-    res.status(200).json({ data })
-
-
-})
-
-router.get("/v1/vehicles", async (req: Request, res: Response) => {
+router.get("/v1/vehicles", async (_req: Request, res: Response) => {
 
     const query = "select  * from vehicles"
     const result = await pool.query(query)
