@@ -11,7 +11,18 @@ const loginUser = async (req: Request, res: Response) => {
         result
     )
 }
-export const AuthController = { loginUser }
+const signInUser = async (req: Request, res: Response) => {
+    // const { name, email, password, phone, role } = req.body
+
+    // console.log(req.body)
+    const result = await AuthServices.signUpIntoDb(req.body)
+    res.status(200).json(
+        result
+    )
+}
+
+
+export const AuthController = { loginUser, signInUser }
 
 // {
 //   "success": true,

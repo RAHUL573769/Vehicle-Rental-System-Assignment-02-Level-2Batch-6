@@ -31,14 +31,8 @@ const loginIntoDb = async (email: string, password: string) => {
         throw new Error("Token not Generated")
     }
 
-    // const loginMessage = {
-    //     success: true,
-    //     "message": "Login successful",
-    //     "data": {
-    //         "token": token,
-    //         "user": isUserExists
-    //     }
-    // }
+
+
     delete isUserExists.rows[0].created_at
     delete isUserExists.rows[0].updated_at
     return {
@@ -65,8 +59,28 @@ const loginIntoDb = async (email: string, password: string) => {
     //   }
     // }
 }
+const signUpIntoDb = async (payload: any) => {
 
-export const AuthServices = { loginIntoDb }
+    const { name, email, password, phone, role } = payload;
+
+    const hashedPassword = await bcrypt.hash(password as string, 10)
+    const query = `
+        INSERT INTO users (name, email, password, phone, role)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+    `;
+
+    const result = await pool.query(query, [
+        name,
+        email,
+        hashedPassword,
+        phone,
+        role,
+    ]);
+    return result;
+
+}
+export const AuthServices = { loginIntoDb, signUpIntoDb }
 
 // {
 //   "success": true,

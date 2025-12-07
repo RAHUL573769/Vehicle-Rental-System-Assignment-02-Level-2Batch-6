@@ -7,5 +7,6 @@ export declare const AuthServices: {
             user: any;
         };
     }>;
+    signUpIntoDb: (payload: any) => Promise<import("pg").QueryResult<any>>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

@@ -8,7 +8,13 @@ const loginUser = async (req, res) => {
     const result = await auth_service_1.AuthServices.loginIntoDb(email, password);
     res.status(200).json(result);
 };
-exports.AuthController = { loginUser };
+const signInUser = async (req, res) => {
+    // const { name, email, password, phone, role } = req.body
+    // console.log(req.body)
+    const result = await auth_service_1.AuthServices.signUpIntoDb(req.body);
+    res.status(200).json(result);
+};
+exports.AuthController = { loginUser, signInUser };
 // {
 //   "success": true,
 //   "message": "Login successful",
