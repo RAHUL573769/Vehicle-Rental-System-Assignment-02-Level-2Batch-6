@@ -1,10 +1,11 @@
 import express, { Request, Response } from 'express'
 import { pool } from '../../shared/database'
 import { auth } from '../../middlewares/auth'
+import { UserRoles } from '../../types/auth.types'
 
 
 const router = express.Router()
-router.post("/v1/vehicles", auth("customer"), async (req: Request, res: Response) => {
+router.post("/v1/vehicles", auth(UserRoles.admin), async (req: Request, res: Response) => {
     // console.log(...req.body)
     const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body
     console.log("Vehicle Data", vehicle_name)
@@ -48,7 +49,7 @@ router.get("/v1/vehicles/:id", async (req: Request, res: Response) => {
     //   const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
 
 })
-router.put("/v1/vehicles/:vehicleId", async (req: Request, res: Response) => {
+router.put("/v1/vehicles/:vehicleId", auth(UserRoles.admin), async (req: Request, res: Response) => {
     try {
         const id = req.params["vehicleId"];
 
@@ -95,7 +96,7 @@ router.put("/v1/vehicles/:vehicleId", async (req: Request, res: Response) => {
     }
 });
 
-router.delete("/v1/vehicles/:vehicleId", async (req: Request, res: Response) => {
+router.delete("/v1/vehicles/:vehicleId", auth(UserRoles.admin), async (req: Request, res: Response) => {
     const id = req.params["vehicleId"];
     const deleteQuery = `DELETE FROM vehicles WHERE id=$1 `
     const result = await pool.query(deleteQuery, [id])

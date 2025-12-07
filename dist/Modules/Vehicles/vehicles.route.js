@@ -7,8 +7,9 @@ exports.VehicleRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const database_1 = require("../../shared/database");
 const auth_1 = require("../../middlewares/auth");
+const auth_types_1 = require("../../types/auth.types");
 const router = express_1.default.Router();
-router.post("/v1/vehicles", (0, auth_1.auth)("customer"), async (req, res) => {
+router.post("/v1/vehicles", (0, auth_1.auth)(auth_types_1.UserRoles.admin), async (req, res) => {
     // console.log(...req.body)
     const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body;
     console.log("Vehicle Data", vehicle_name);
@@ -39,7 +40,7 @@ router.get("/v1/vehicles/:id", async (req, res) => {
     res.status(200).json({ result });
     //   const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
 });
-router.put("/v1/vehicles/:vehicleId", async (req, res) => {
+router.put("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), async (req, res) => {
     try {
         const id = req.params["vehicleId"];
         const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body;
@@ -75,7 +76,7 @@ router.put("/v1/vehicles/:vehicleId", async (req, res) => {
         });
     }
 });
-router.delete("/v1/vehicles/:vehicleId", async (req, res) => {
+router.delete("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), async (req, res) => {
     const id = req.params["vehicleId"];
     const deleteQuery = `DELETE FROM vehicles WHERE id=$1 `;
     const result = await database_1.pool.query(deleteQuery, [id]);
