@@ -20,7 +20,25 @@ const createUserIntoDb = async (payload: any) => {
 
     return result;
 };
+const getUsersFromDb = async (query: string) => {
+    const result = await pool.query(query)
+    console.log(result)
+    return result
+}
+const getSingleUserFromDb = async (query: string, specificVehicleId: string) => {
+    const result = await pool.query(query, [specificVehicleId])
+    return result
+}
+const updateUsersFromDb = async (query: string, params: any[]) => {
+    const result = await pool.query(query, params);
+    return result
+}
+const deleteUsersFromDb = async (deleteQuery: string, id: string) => {
+    const result = await pool.query(deleteQuery, [id])
+    return result
+}
+
 
 export const UserServices = {
-    createUserIntoDb,
+    createUserIntoDb, getSingleUserFromDb, getUsersFromDb, updateUsersFromDb, deleteUsersFromDb
 };

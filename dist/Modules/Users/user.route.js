@@ -8,5 +8,9 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
 const router = express_1.default.Router();
 router.post("/createUser", user_controller_1.UserController.createUser);
+router.get("/users", user_controller_1.UserController.getUsers);
+router.get("/users/:id", user_controller_1.UserController.getSpecificUsers);
+router.patch("/users/:id", user_controller_1.UserController.updateUsers);
+router.delete("/users/:id", user_controller_1.UserController.deleteVehicles);
 exports.UserRoute = router;
 //# sourceMappingURL=user.route.js.map
