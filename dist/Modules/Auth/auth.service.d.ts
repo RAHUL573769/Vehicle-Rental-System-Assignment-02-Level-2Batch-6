@@ -1,7 +1,11 @@
 export declare const AuthServices: {
     loginIntoDb: (email: string, password: string) => Promise<{
-        token: string;
-        user: import("pg").QueryResult<any>;
+        success: boolean;
+        message: string;
+        data: {
+            token: string;
+            user: any;
+        };
     }>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

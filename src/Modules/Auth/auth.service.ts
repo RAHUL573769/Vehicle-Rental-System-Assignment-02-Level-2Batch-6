@@ -30,9 +30,55 @@ const loginIntoDb = async (email: string, password: string) => {
     if (!token) {
         throw new Error("Token not Generated")
     }
-    return { token: token, user: isUserExists }
 
+    // const loginMessage = {
+    //     success: true,
+    //     "message": "Login successful",
+    //     "data": {
+    //         "token": token,
+    //         "user": isUserExists
+    //     }
+    // }
+    delete isUserExists.rows[0].created_at
+    delete isUserExists.rows[0].updated_at
+    return {
+        success: true,
+        "message": "Login successful",
+        "data": {
+            "token": token,
+            "user": isUserExists.rows[0]
+        }
+    }
 
+    // {
+    //   "success": true,
+    //   "message": "Login successful",
+    //   "data": {
+    //     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    //     "user": {
+    //       "id": 1,
+    //       "name": "John Doe",
+    //       "email": "john.doe@example.com",
+    //       "phone": "+1234567890",
+    //       "role": "customer"
+    //     }
+    //   }
+    // }
 }
 
 export const AuthServices = { loginIntoDb }
+
+// {
+//   "success": true,
+//   "message": "Login successful",
+//   "data": {
+//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+//     "user": {
+//       "id": 1,
+//       "name": "John Doe",
+//       "email": "john.doe@example.com",
+//       "phone": "+1234567890",
+//       "role": "customer"
+//     }
+//   }
+// }
