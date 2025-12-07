@@ -10,9 +10,9 @@ router.post("/v1/vehicles", auth(UserRoles.admin), VehicleController.createVehic
 
 router.get("/v1/vehicles", VehicleController.getVehicles)
 router.get("/v1/vehicles/:id", VehicleController.getSingleVehicles)
-router.put("/v1/vehicles/:vehicleId", auth(UserRoles.admin),);
+router.put("/v1/vehicles/:vehicleId", auth(UserRoles.admin), VehicleController.updateVehicles);
 
-router.delete("/v1/vehicles/:vehicleId", auth(UserRoles.admin),)
+router.delete("/v1/vehicles/:vehicleId", auth(UserRoles.admin), VehicleController.deleteVehicles)
 
 
 export const VehicleRoute = router

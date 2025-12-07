@@ -12,7 +12,7 @@ const router = express_1.default.Router();
 router.post("/v1/vehicles", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.createVehicles);
 router.get("/v1/vehicles", vehicles_controllers_1.VehicleController.getVehicles);
 router.get("/v1/vehicles/:id", vehicles_controllers_1.VehicleController.getSingleVehicles);
-router.put("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin));
-router.delete("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin));
+router.put("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.updateVehicles);
+router.delete("/v1/vehicles/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.deleteVehicles);
 exports.VehicleRoute = router;
 //# sourceMappingURL=vehicles.route.js.map
