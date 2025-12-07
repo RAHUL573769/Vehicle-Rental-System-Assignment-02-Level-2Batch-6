@@ -1,5 +1,4 @@
-import express, { Request, Response } from 'express'
-import { pool } from '../../shared/database'
+import express from 'express'
 import { auth } from '../../middlewares/auth'
 import { UserRoles } from '../../types/auth.types'
 import { VehicleController } from './vehicles.controllers'
