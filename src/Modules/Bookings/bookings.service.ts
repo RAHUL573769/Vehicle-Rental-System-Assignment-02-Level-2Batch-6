@@ -56,7 +56,7 @@ const createBookingsIntoDb = async (payload: any) => {
         vehicle_name: vehicle.vehicle_name,
         daily_rent_price: vehicle.daily_rent_price,
         registration_number: vehicle.registration_number,
- ,       // availability_status: vehicle.availability_status,
+        // availability_status: vehicle.availability_status,
     };
 
 

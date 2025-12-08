@@ -37,26 +37,27 @@ const createBookingsIntoDb = async (payload) => {
         vehicle_name: vehicle.vehicle_name,
         daily_rent_price: vehicle.daily_rent_price,
         registration_number: vehicle.registration_number,
-    }; // availability_status: vehicle.availability_status,
-};
-const rentalData = await database_1.pool.query(`INSERT INTO bookings 
+        // availability_status: vehicle.availability_status,
+    };
+    const rentalData = await database_1.pool.query(`INSERT INTO bookings 
             (customer_id, vehicle_id, rent_start_date, rent_end_date, status, total_price, customer, vehicle) 
             VALUES ($1, $2, $3, $4, 'active', $5, $6, $7)
             RETURNING *`, [
-    customer_id,
-    vehicle_id,
-    rent_start_date,
-    rent_end_date,
-    totalPriceCalculation,
-    newCustomerData,
-    newVehicleData // FIXED
-]);
-const booking = rentalData.rows[0];
-delete booking.customer;
-delete booking.created_at;
-delete booking.updated_at;
-console.log('Bookings', booking);
-return booking;
+        customer_id,
+        vehicle_id,
+        rent_start_date,
+        rent_end_date,
+        totalPriceCalculation,
+        newCustomerData,
+        newVehicleData // FIXED
+    ]);
+    const booking = rentalData.rows[0];
+    delete booking.customer;
+    delete booking.created_at;
+    delete booking.updated_at;
+    console.log('Bookings', booking);
+    return booking;
+};
 // export const createBookingsIntoDb = async (payload: any) => {
 //     const client = await pool.connect();
 //     try {

@@ -1,6 +1,6 @@
 export declare const BookingServices: {
     updateBookingRoleBasedService: (bookingId: any, status: string, role: string) => Promise<any>;
-    createBookingsIntoDb: (payload: any) => Promise<void>;
+    createBookingsIntoDb: (payload: any) => Promise<any>;
     adminAndUserViewingService: (role: string, id: number) => Promise<any[] | undefined>;
 };
 //# sourceMappingURL=bookings.service.d.ts.map
