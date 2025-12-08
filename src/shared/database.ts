@@ -2,7 +2,7 @@ import { Pool } from "pg";
 import config from "../config";
 
 export const pool = new Pool({
-  connectionString: config.POSTGRES_DB_URL
+  connectionString: config.POSTGRES_DB_URL,
 });
 
 export const initDb = async () => {
@@ -11,12 +11,10 @@ export const initDb = async () => {
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
-      email VARCHAR(150) UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      phone VARCHAR(15),
-       role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer')),
-      created_at TIMESTAMP DEFAULT NOW(),
-      updated_at TIMESTAMP DEFAULT NOW()
+      email VARCHAR(100) NOT NULL UNIQUE CHECK (email = LOWER(email)),
+      password VARCHAR(255) NOT NULL CHECK (LENGTH(password) >= 6),
+      phone VARCHAR(15) NOT NULL,
+      role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer'))
     );
   `);
 
@@ -24,13 +22,11 @@ export const initDb = async () => {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS vehicles (
       id SERIAL PRIMARY KEY,
-      vehicle_name VARCHAR(200) NOT NULL,
-      type VARCHAR(100) NOT NULL,
-      registration_number VARCHAR(100) NOT NULL UNIQUE,
-      daily_rent_price INT NOT NULL,
-      availability_status VARCHAR(50) NOT NULL,
-      created_at TIMESTAMP DEFAULT NOW(),
-      updated_at TIMESTAMP DEFAULT NOW()
+      vehicle_name VARCHAR(100) NOT NULL,
+      type VARCHAR(20) NOT NULL CHECK (type IN ('car', 'bike', 'van', 'SUV')),
+      registration_number VARCHAR(50) NOT NULL UNIQUE,
+      daily_rent_price NUMERIC(10, 2) NOT NULL CHECK (daily_rent_price > 0),
+      availability_status VARCHAR(20) NOT NULL CHECK (availability_status IN ('available', 'booked'))
     );
   `);
 
@@ -42,13 +38,10 @@ export const initDb = async () => {
       vehicle_id INT NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
       rent_start_date DATE NOT NULL,
       rent_end_date DATE NOT NULL CHECK (rent_end_date > rent_start_date),
-      total_price INT NOT NULL,
-      status VARCHAR(50) NOT NULL,
+      total_price NUMERIC(10,2) NOT NULL CHECK (total_price > 0),
+      status VARCHAR(20) NOT NULL CHECK (status IN ('active','cancelled','returned')),
       customer JSON,
-      vehicle JSON,
-      created_at TIMESTAMP DEFAULT NOW(),
-      updated_at TIMESTAMP DEFAULT NOW()
+      vehicle JSON
     );
   `);
 };
-
