@@ -37,7 +37,6 @@ const createBookingsIntoDb = async (payload) => {
         vehicle_name: vehicle.vehicle_name,
         daily_rent_price: vehicle.daily_rent_price,
         registration_number: vehicle.registration_number,
-        // availability_status: vehicle.availability_status,
     };
     const rentalData = await database_1.pool.query(`INSERT INTO bookings 
             (customer_id, vehicle_id, rent_start_date, rent_end_date, status, total_price, customer, vehicle) 
