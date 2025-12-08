@@ -33,6 +33,7 @@ const loginIntoDb = async (email, password) => {
     if (!token) {
         throw new Error("Token not Generated");
     }
+    console.log(isUserExists);
     delete isUserExists.rows[0].created_at;
     delete isUserExists.rows[0].updated_at;
     delete isUserExists.rows[0].password;

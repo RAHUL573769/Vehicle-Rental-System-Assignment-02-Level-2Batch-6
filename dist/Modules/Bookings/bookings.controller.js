@@ -17,7 +17,7 @@ const createBookings = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Cannot Create Bookings",
-            errors: error
+            errors: error.message
         });
     }
 };

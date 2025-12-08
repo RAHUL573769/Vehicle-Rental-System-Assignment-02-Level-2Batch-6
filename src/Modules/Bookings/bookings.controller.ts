@@ -11,12 +11,12 @@ const createBookings = async (req: Request, res: Response) => {
             message: "Booking created successfully",
             data: result
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating user:", error);
         return res.status(500).json({
             success: false,
             message: "Cannot Create Bookings",
-            errors: error
+            errors: error.message
         });
     }
 };

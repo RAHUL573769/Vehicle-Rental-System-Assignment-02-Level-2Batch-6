@@ -32,7 +32,7 @@ const loginIntoDb = async (email: string, password: string) => {
         throw new Error("Token not Generated")
     }
 
-
+    console.log(isUserExists)
 
     delete isUserExists.rows[0].created_at
     delete isUserExists.rows[0].updated_at
@@ -45,6 +45,11 @@ const loginIntoDb = async (email: string, password: string) => {
             "user": isUserExists.rows[0]
         }
     }
+
+
+
+
+
 
     // {
     //   "success": true,

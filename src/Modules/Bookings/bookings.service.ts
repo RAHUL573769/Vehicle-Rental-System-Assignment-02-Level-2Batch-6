@@ -80,6 +80,7 @@ const createBookingsIntoDb = async (payload: any) => {
     delete booking.customer;
     delete booking.created_at
     delete booking.updated_at
+    delete booking.vehicle.registration_number
     console.log('Bookings', booking)
 
 
