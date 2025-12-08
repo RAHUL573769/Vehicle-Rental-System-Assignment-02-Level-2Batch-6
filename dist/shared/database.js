@@ -10,7 +10,6 @@ exports.pool = new pg_1.Pool({
     connectionString: config_1.default.POSTGRES_DB_URL,
 });
 const initDb = async () => {
-    // Users table
     await exports.pool.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
@@ -21,7 +20,6 @@ const initDb = async () => {
       role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer'))
     );
   `);
-    // Vehicles table
     await exports.pool.query(`
     CREATE TABLE IF NOT EXISTS vehicles (
       id SERIAL PRIMARY KEY,
@@ -32,7 +30,6 @@ const initDb = async () => {
       availability_status VARCHAR(20) NOT NULL CHECK (availability_status IN ('available', 'booked'))
     );
   `);
-    // Bookings table
     await exports.pool.query(`
     CREATE TABLE IF NOT EXISTS bookings (
       id SERIAL PRIMARY KEY,

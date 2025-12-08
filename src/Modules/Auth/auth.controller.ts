@@ -16,7 +16,7 @@ const loginUser = async (req: Request, res: Response) => {
         )
 
     } catch (error: any) {
-        return res.status(500).json({
+        return res.status(401).json({
             success: false,
             message: "Login failed",
             errors: error?.message || "Something went wrong",
@@ -37,7 +37,7 @@ const signInUser = async (req: Request, res: Response) => {
         )
 
     } catch (error: any) {
-        return res.status(500).json({
+        return res.status(401).json({
             success: false,
             message: "User registration failed",
             errors: error?.message || "Something went wrong",

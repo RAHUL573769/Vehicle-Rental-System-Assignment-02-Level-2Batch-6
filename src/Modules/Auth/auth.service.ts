@@ -36,6 +36,7 @@ const loginIntoDb = async (email: string, password: string) => {
 
     delete isUserExists.rows[0].created_at
     delete isUserExists.rows[0].updated_at
+    delete isUserExists.rows[0].password
     return {
         success: true,
         "message": "Login successful",
@@ -86,6 +87,9 @@ const signUpIntoDb = async (payload: any) => {
         phone,
         role,
     ]);
+
+    console.log(result)
+    delete result?.rows[0].password
     return result?.rows[0];
 
 }

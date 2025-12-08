@@ -15,7 +15,8 @@ const createBookings = async (req: Request, res: Response) => {
         console.error("Error creating user:", error);
         return res.status(500).json({
             success: false,
-            message: "Internal server error",
+            message: "Cannot Create Bookings",
+            errors: error
         });
     }
 };
@@ -33,7 +34,7 @@ const adminAndUserView = async (req: Request, res: Response) => {
         });
     }
     catch (error: any) {
-        res.status(500).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: error.message, errors: error });
     }
 }
 const updateBookingById = async (req: Request, res: Response) => {
@@ -49,7 +50,7 @@ const updateBookingById = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: error.message, errors: error });
     }
 
 }

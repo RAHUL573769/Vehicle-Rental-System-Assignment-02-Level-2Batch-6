@@ -226,7 +226,7 @@ const updateBookingRoleBasedService = async (bookingId, status, role) => {
     }
     else if (status === "returned" && role === "admin") {
         const findBookings = await database_1.pool.query(`SELECT * FROM bookings WHERE id = $1`, [bookingId]);
-        const fullVehicle = JSON.parse(findBookings.rows[0].vehicle);
+        const fullVehicle = findBookings.rows[0].vehicle;
         const data = {
             ...fullVehicle,
             availability_status: "available"
@@ -234,7 +234,7 @@ const updateBookingRoleBasedService = async (bookingId, status, role) => {
         const result = await database_1.pool.query(`UPDATE bookings SET status = $1 , vehicle = $3 WHERE id = $2 RETURNING *`, [status, bookingId, data]);
         await database_1.pool.query(`UPDATE vehicles SET availability_status = 'available' WHERE id = $1 RETURNING *`, [result.rows[0].vehicle_id]);
         delete result.rows[0].customer;
-        const vehicleDataParse = result.rows[0].vehicle ? JSON.parse(result.rows[0].vehicle) : null;
+        const vehicleDataParse = result.rows[0].vehicle ? result.rows[0].vehicle : null;
         result.rows[0].vehicle = vehicleDataParse;
         return await result.rows[0];
     }

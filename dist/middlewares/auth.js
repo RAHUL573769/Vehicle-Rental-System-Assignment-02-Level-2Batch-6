@@ -19,7 +19,7 @@ const auth = (...roles) => {
             const token = header.split(" ")[1]; //
             console.log("Token", token);
             if (!token) {
-                return res.status(401).json({
+                return res.status(403).json({
                     success: false,
                     message: "Unauthorized: No token provided",
                 });
