@@ -14,11 +14,14 @@ app.use(express.json())
 
 app.use("/", HelloWorldRouter)
 app.use("/api/v1/auth/", AuthRoute)
+app.use("/api/v1/vehicles", VehicleRoute)
 app.use("/users", UserRoute)
-app.use("/api", VehicleRoute)
+
 app.use("/api", BookingRoute)
 
 
+
+initDb();
 app.use((req, res) => {
     res.status(404).json({
         success: false,
@@ -26,8 +29,6 @@ app.use((req, res) => {
         path: req.path,
     });
 });
-initDb();
-
 app.listen(config.PORT, () => {
     console.log(`Example app listening on port ${config.PORT}`)
 })

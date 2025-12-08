@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 export declare const VehicleController: {
-    createVehicles: (req: Request, res: Response, _next: NextFunction) => Promise<void>;
+    createVehicles: (req: Request, res: Response, _next: NextFunction) => Promise<Response<any, Record<string, any>>>;
     getSingleVehicles: (req: Request, res: Response) => Promise<void>;
     getVehicles: (_req: Request, res: Response) => Promise<void>;
     updateVehicles: (req: Request, res: Response) => Promise<void>;

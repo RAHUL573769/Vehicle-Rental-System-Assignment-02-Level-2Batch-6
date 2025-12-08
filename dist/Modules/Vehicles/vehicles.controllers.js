@@ -24,14 +24,14 @@ const createVehicles = async (req, res, _next) => {
             availability_status
         ];
         const result = await vehicles_services_1.VehicleServices.createVehiclesIntoDb(query, params);
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
-            "message": "Vehicle created successfully",
+            message: "Vehicle created successfully",
             data: result.rows[0]
         });
     }
     catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             "success": false,
             "message": error.message,
             "errors": error
@@ -64,6 +64,9 @@ const getSingleVehicles = async (req, res) => {
         const specificVehicleId = req.params["id"];
         const query = `Select * from vehicles where id= $1`;
         const result = await vehicles_services_1.VehicleServices.getSingleVehicleFromDb(query, specificVehicleId);
+        if (result.rows.length < 1) {
+            throw new Error('Vehicle not found');
+        }
         res.status(200).json({
             "success": true,
             "message": "Vehicles retrieved successfully",
@@ -80,28 +83,36 @@ const getSingleVehicles = async (req, res) => {
 };
 const updateVehicles = async (req, res) => {
     try {
-        const id = req.params["vehicleId"];
+        const { vehicleId } = req.params;
         const { vehicle_name, type, registration_number, daily_rent_price, availability_status } = req.body;
-        const query = `
-    UPDATE vehicles
-    SET
-        vehicle_name = $1,
-        type = $2,
-        registration_number = $3,
-        daily_rent_price = $4,
-        availability_status = $5
-    WHERE id = $6
-    RETURNING *;
-`;
-        const params = [
-            vehicle_name,
-            type,
-            registration_number,
-            daily_rent_price,
-            availability_status,
-            id
-        ];
-        const result = await vehicles_services_1.VehicleServices.updateVehiclesInDb(query, params);
+        // const id = req.params["vehicleId"];
+        // const {
+        //     vehicle_name,
+        //     type,
+        //     registration_number,
+        //     daily_rent_price,
+        //     availability_status
+        // } = req.body;
+        //         const query = `
+        //     UPDATE vehicles
+        //     SET
+        //         vehicle_name = $1,
+        //         type = $2,
+        //         registration_number = $3,
+        //         daily_rent_price = $4,
+        //         availability_status = $5
+        //     WHERE id = $6
+        //     RETURNING *;
+        // `;
+        // const params = [
+        //     vehicle_name,
+        //     type,
+        //     registration_number,
+        //     daily_rent_price,
+        //     availability_status,
+        //     id
+        // ]
+        const result = await vehicles_services_1.VehicleServices.updateVehiclesInDb(vehicleId, vehicle_name, type, registration_number, daily_rent_price, availability_status);
         res.status(200).json({
             success: true,
             "message": "Vehicle updated successfully",
@@ -121,7 +132,8 @@ const deleteVehicles = async (req, res) => {
     const deleteQuery = `DELETE FROM vehicles WHERE id=$1 `;
     const result = await vehicles_services_1.VehicleServices.deleteVehiclesFromDb(deleteQuery, id);
     res.status(200).json({
-        result: result
+        "success": true,
+        "message": "Vehicle deleted successfully"
     });
 };
 exports.VehicleController = { createVehicles, getSingleVehicles, getVehicles, updateVehicles, deleteVehicles };

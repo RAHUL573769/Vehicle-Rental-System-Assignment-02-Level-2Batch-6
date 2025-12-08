@@ -50,7 +50,6 @@ const auth = (...roles) => {
                 "errors": "Invalid or malformed token",
             });
         }
-        next();
     };
 };
 exports.auth = auth;

@@ -5,13 +5,14 @@ import { VehicleController } from './vehicles.controllers'
 
 
 const router = express.Router()
-router.post("/v1/vehicles", auth(UserRoles.admin), VehicleController.createVehicles)
 
-router.get("/v1/vehicles", VehicleController.getVehicles)
-router.get("/v1/vehicles/:id", VehicleController.getSingleVehicles)
-router.put("/v1/vehicles/:vehicleId", auth(UserRoles.admin), VehicleController.updateVehicles);
 
-router.delete("/v1/vehicles/:vehicleId", auth(UserRoles.admin), VehicleController.deleteVehicles)
+router.get("/", VehicleController.getVehicles)
+router.post("/", auth(UserRoles.admin), VehicleController.createVehicles)
+router.get("/:id", VehicleController.getSingleVehicles)
+router.put("/:vehicleId", auth(UserRoles.admin), VehicleController.updateVehicles);
+
+router.delete("/:vehicleId", auth(UserRoles.admin), VehicleController.deleteVehicles)
 
 
 export const VehicleRoute = router
