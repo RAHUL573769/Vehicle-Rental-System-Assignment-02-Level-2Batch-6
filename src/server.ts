@@ -22,13 +22,7 @@ app.use("/api/v1/bookings", BookingRoute)
 
 
 initDb();
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Route not found",
-        path: req.path,
-    });
-});
+
 app.listen(config.PORT, () => {
     console.log(`Example app listening on port ${config.PORT}`)
 })

@@ -19,13 +19,6 @@ app.use("/api/v1/vehicles", vehicles_route_1.VehicleRoute);
 app.use("/api/v1/users", user_route_1.UserRoute);
 app.use("/api/v1/bookings", booking_route_1.BookingRoute);
 (0, database_1.initDb)();
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: "Route not found",
-        path: req.path,
-    });
-});
 app.listen(config_1.default.PORT, () => {
     console.log(`Example app listening on port ${config_1.default.PORT}`);
 });
