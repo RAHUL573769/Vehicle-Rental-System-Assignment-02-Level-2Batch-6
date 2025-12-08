@@ -7,8 +7,8 @@ const createBookings = async (req: Request, res: Response) => {
         console.log(req.body)
         return res.status(200).json({
             success: true,
-            message: "User created successfully",
-            data: result.rows[0]
+            message: "Booking created successfully",
+            data: result
         });
     } catch (error) {
         console.error("Error creating user:", error);

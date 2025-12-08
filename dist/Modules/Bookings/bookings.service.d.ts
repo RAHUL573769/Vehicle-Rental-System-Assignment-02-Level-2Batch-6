@@ -1,4 +1,4 @@
 export declare const BookingServices: {
-    createBookingsIntoDb: (payload: any) => Promise<import("pg").QueryResult<any>>;
+    createBookingsIntoDb: (payload: any) => Promise<any>;
 };
 //# sourceMappingURL=bookings.service.d.ts.map
