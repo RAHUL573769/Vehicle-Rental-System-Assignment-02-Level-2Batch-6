@@ -1,64 +1,47 @@
-🚗 Vehicle Rental System (Backend API)
+Vehicle Rental System (Backend)
 
-A complete backend solution for managing a vehicle rental service.
-This project supports vehicle management, bookings, authentication, and secure user handling — all built with modern technologies.
+A backend API built with Node.js, TypeScript, PostgreSQL, and JWT
+Authentication for managing vehicles, users, and rental bookings.
 
-🔗 Live API URL:
-👉 https://nodeproject-rose.vercel.app/
+Setup & Installation
 
-📌 Project Overview
+1. Clone the Repository
 
-The Vehicle Rental System allows users to browse available vehicles, book rentals, manage bookings, and update vehicle status. Admins can create, update, or delete vehicles and oversee booking records. The project follows a modular and scalable architecture built using Node.js + TypeScript.
+git clone cd vehicle-rental-system-backend
 
-✨ Features
-🔒 Authentication
+2. Install Dependencies
 
-JWT-based secure authentication
+npm install
 
-Password hashing using Bcrypt
+3. Configure Environment Variables
 
-Role-based secure API access (Admin & User)
+Create a .env file and add:
 
-🚘 Vehicle Management
+POSTGRES_DB_URL=your_postgres_connection_url JWT_SECRET=your_secret_key
 
-Add, edit, delete, and view vehicles
+4. Run the Project (Development Mode)
 
-Vehicles contain rental price, type, and availability status
+npm run dev
 
-Automatic availability update after booking actions
+5. Build & Run in Production
 
-📅 Booking System
+npm run build npm start
 
-Create new bookings with start and end dates
+API Overview
 
-Auto calculation of rental price
+Authentication APIs
 
-Auto-update vehicle availability when:
+User roles: - Admin – Manage vehicles, users, and all bookings -
+Customer – Register, view vehicles, create/manage own bookings
 
-Booking is created → status = booked
+Endpoints: POST /api/v1/auth/signup POST /api/v1/auth/signin
 
-Booking is returned / expired → status = available
+Vehicle APIs
 
-Booking is cancelled → status = available
+GET /api/v1/vehicles POST /api/v1/vehicles GET
+/api/v1/vehicles/:vehicleId PUT /api/v1/vehicles/:vehicleId DELETE
+/api/v1/vehicles/:vehicleId
 
-🛠 CRUD Operations
+Live API
 
-Complete CREATE, READ, UPDATE, DELETE APIs
-
-Fully RESTful architecture
-
-🗄 Database
-
-PostgreSQL with optimised schema
-
-Proper validation checks and constraints
-
-🧰 Technology Stack
-Layer	Technology
-Runtime	Node.js
-Language	TypeScript
-Database	PostgreSQL
-Authentication	JWT
-Password Security	Bcrypt
-ORM / Query	Native SQL with pg library
-Deployment	Vercel
+https://nodeproject-rose.vercel.app/
