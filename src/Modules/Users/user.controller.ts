@@ -18,7 +18,23 @@ const createUser = async (req: Request, res: Response) => {
         });
     }
 };
+const AdminOrOwnProfile = async (req: Request, res: Response) => {
+    const { userId } = req.params;
+    const { name, email, phone, role } = req.body
+    const data = { name, email, phone, role };
+    const customerInfo = req.user;
 
+    try {
+        const result = await UserServices.AdminorOwnProfile(customerInfo, userId, data);
+        res.status(200).json({
+            success: true,
+            message: "Users retrieved successfully",
+            data: result
+        });
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
 
 const getUsers = async (_req: Request, res: Response) => {
 
@@ -155,4 +171,4 @@ const deleteVehicles = async (req: Request, res: Response) => {
 
 
 
-export const UserController = { createUser, getUsers, getSpecificUsers, updateUsers, deleteVehicles }
+export const UserController = { AdminOrOwnProfile, createUser, getUsers, getSpecificUsers, updateUsers, deleteVehicles }

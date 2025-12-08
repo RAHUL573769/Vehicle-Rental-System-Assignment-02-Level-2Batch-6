@@ -197,6 +197,7 @@ const deleteVehicles = async (req: Request, res: Response) => {
     const id = req.params["vehicleId"];
     const deleteQuery = `DELETE FROM vehicles WHERE id=$1 `
     const result = await VehicleServices.deleteVehiclesFromDb(deleteQuery, id as string)
+    console.log("Deleted Vehicle", result)
     res.status(200).json({
         "success": true,
         "message": "Vehicle deleted successfully"

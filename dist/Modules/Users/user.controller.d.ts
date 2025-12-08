@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 export declare const UserController: {
+    AdminOrOwnProfile: (req: Request, res: Response) => Promise<void>;
     createUser: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
     getUsers: (_req: Request, res: Response) => Promise<void>;
     getSpecificUsers: (req: Request, res: Response) => Promise<void>;

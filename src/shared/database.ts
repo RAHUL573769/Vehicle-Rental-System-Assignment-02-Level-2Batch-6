@@ -11,12 +11,15 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL CHECK (LENGTH(password) >= 6),
+    password VARCHAR(6) NOT NULL CHECK (LENGTH(password) >= 6),
     phone VARCHAR(20) NOT NULL,
     role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer'))
 );
 
 CREATE TABLE IF NOT EXISTS vehicles (
+
+
+
     id SERIAL PRIMARY KEY,
     vehicle_name VARCHAR(100) NOT NULL,
     type VARCHAR(20) NOT NULL CHECK (type IN ('car', 'bike', 'van', 'SUV')),

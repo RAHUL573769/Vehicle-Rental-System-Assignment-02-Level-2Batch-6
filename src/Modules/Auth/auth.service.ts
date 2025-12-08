@@ -68,6 +68,10 @@ const signUpIntoDb = async (payload: any) => {
     if (findUserIsExist.rows.length > 0) {
         throw new Error('User Email already exists')
     }
+
+    if (password.length < 0) {
+        throw new Error("Password Must Be 6 characters  long")
+    }
     const hashedPassword = await bcrypt.hash(password as string, 10)
     const query = `
         INSERT INTO users (name, email, password, phone, role)
