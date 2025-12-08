@@ -14,10 +14,17 @@ const booking_route_1 = require("./Modules/Bookings/booking.route");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use("/", HelloWorld_route_1.HelloWorldRouter);
+app.use("/api/v1/auth/", auth_route_1.AuthRoute);
 app.use("/users", user_route_1.UserRoute);
 app.use("/api", vehicles_route_1.VehicleRoute);
 app.use("/api", booking_route_1.BookingRoute);
-app.use("/auth", auth_route_1.AuthRoute);
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found",
+        path: req.path,
+    });
+});
 (0, database_1.initDb)();
 app.listen(config_1.default.PORT, () => {
     console.log(`Example app listening on port ${config_1.default.PORT}`);

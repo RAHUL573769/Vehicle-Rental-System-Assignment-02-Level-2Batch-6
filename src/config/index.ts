@@ -6,6 +6,7 @@ export default {
     PORT: process.env.PORT as string,
 
     POSTGRES_DB_URL: process.env.POSTGRES_DB,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    EXPIRES_IN: process.env.EXPIRES_IN
 
 };

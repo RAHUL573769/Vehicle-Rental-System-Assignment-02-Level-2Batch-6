@@ -9,6 +9,7 @@ dotenv_1.default.config({ path: path_1.default.join(process.cwd(), ".env") });
 exports.default = {
     PORT: process.env.PORT,
     POSTGRES_DB_URL: process.env.POSTGRES_DB,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    EXPIRES_IN: process.env.EXPIRES_IN
 };
 //# sourceMappingURL=index.js.map

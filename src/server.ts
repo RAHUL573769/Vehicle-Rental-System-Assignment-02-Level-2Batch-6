@@ -9,11 +9,23 @@ import { VehicleRoute } from './Modules/Vehicles/vehicles.route'
 import { BookingRoute } from './Modules/Bookings/booking.route'
 const app = express()
 app.use(express.json())
+
+
+
 app.use("/", HelloWorldRouter)
+app.use("/api/v1/auth/", AuthRoute)
 app.use("/users", UserRoute)
 app.use("/api", VehicleRoute)
 app.use("/api", BookingRoute)
-app.use("/auth", AuthRoute)
+
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found",
+        path: req.path,
+    });
+});
 initDb();
 
 app.listen(config.PORT, () => {

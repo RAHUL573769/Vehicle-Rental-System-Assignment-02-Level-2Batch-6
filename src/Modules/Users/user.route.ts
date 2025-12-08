@@ -1,10 +1,11 @@
 import express from 'express'
 const router = express.Router()
 import { UserController } from './user.controller'
+import { auth } from '../../middlewares/auth'
 
 
 
-router.post("/createUser", UserController.createUser)
+router.post("/createUser", auth("admin"), UserController.createUser)
 router.get("/users", UserController.getUsers)
 router.get("/users/:id", UserController.getSpecificUsers)
 router.patch("/users/:id", UserController.updateUsers)

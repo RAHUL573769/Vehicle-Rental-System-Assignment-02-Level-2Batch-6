@@ -1,0 +1,12 @@
+[
+    {
+        "success": true,
+        "message": "Operation description",
+        "data": "Response data"
+    },
+    {
+        "success": false,
+        "message": "Error description",
+        "errors": "Error description"
+    }
+]

@@ -25,6 +25,7 @@ const loginIntoDb = async (email, password) => {
         password: isUserExists.rows[0].password,
         role: isUserExists.rows[0].role
     };
+    delete isUserExists.rows[0].password;
     const token = jsonwebtoken_1.default.sign(jwtPayLoad, jwtSecretKey, { expiresIn: '7d' });
     // console.log("JWT", jwtPayLoad)
     // console.log(isUserExists.rows[0].password)
@@ -59,6 +60,10 @@ const loginIntoDb = async (email, password) => {
 };
 const signUpIntoDb = async (payload) => {
     const { name, email, password, phone, role } = payload;
+    const findUserIsExist = await database_1.pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    if (findUserIsExist.rows.length > 0) {
+        throw new Error('User Email already exists');
+    }
     const hashedPassword = await bcrypt_1.default.hash(password, 10);
     const query = `
         INSERT INTO users (name, email, password, phone, role)
@@ -72,7 +77,7 @@ const signUpIntoDb = async (payload) => {
         phone,
         role,
     ]);
-    return result;
+    return result?.rows[0];
 };
 exports.AuthServices = { loginIntoDb, signUpIntoDb };
 // {

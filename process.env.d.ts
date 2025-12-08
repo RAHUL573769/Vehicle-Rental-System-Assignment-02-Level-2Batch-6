@@ -4,6 +4,7 @@ declare global {
             PORT: string;
             POSTGRES_DB: string
             JWT_SECRET: string
+            EXPIRES_IN: string
 
 
 
@@ -14,5 +15,6 @@ declare global {
 export default {
     PORT: process.env[PORT],
     POSTGRES_DB: process.env.POSTGRES_DB,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    EXPIRES_IN: process.env.EXPIRES_IN,
 };

@@ -7,8 +7,17 @@ import config from "../config";
 export const auth = (...roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction): any => {
         try {
-            const token = req.headers.authorization;
+            const header = req.headers.authorization;
 
+            if (!header || !header.startsWith("Bearer ")) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Unauthorized: No token provided",
+                });
+            }
+
+            const token = header.split(" ")[1]; //
+            console.log("Token", token)
             if (!token) {
                 return res.status(401).json({
                     success: false,
@@ -26,13 +35,25 @@ export const auth = (...roles: string[]) => {
                     success: false,
                     message: "Forbidden: You do not have permission",
                 });
+
             }
+            next()
 
+        } catch (error: any) {
+            console.log(error.name)
 
-        } catch (error) {
+            if (error.name === "TokenExpiredError") {
+                return res.status(401).json({
+                    "success": false,
+                    "message": error.message,
+                    "errors": "Token Expired "
+                });
+
+            }
             return res.status(401).json({
-                success: false,
-                message: "Invalid or expired token",
+                "success": false,
+                "message": error.message,
+                "errors": "Invalid or malformed token",
             });
 
         }
