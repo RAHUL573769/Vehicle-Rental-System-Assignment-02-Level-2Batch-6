@@ -53,4 +53,3 @@ exports.AuthController = { loginUser, signInUser };
 //     }
 //   }
 // }
-//# sourceMappingURL=auth.controller.js.map

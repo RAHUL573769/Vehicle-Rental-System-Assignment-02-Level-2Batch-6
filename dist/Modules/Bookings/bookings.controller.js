@@ -54,4 +54,3 @@ const updateBookingById = async (req, res) => {
     }
 };
 exports.BookingsController = { createBookings, adminAndUserView, updateBookingById };
-//# sourceMappingURL=bookings.controller.js.map

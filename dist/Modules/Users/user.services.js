@@ -59,4 +59,3 @@ const AdminorOwnProfile = async (customerInfo, userId, data) => {
 exports.UserServices = {
     AdminorOwnProfile, createUserIntoDb, getSingleUserFromDb, getUsersFromDb, updateUsersFromDb, deleteUsersFromDb
 };
-//# sourceMappingURL=user.services.js.map

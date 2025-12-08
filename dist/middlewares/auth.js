@@ -53,4 +53,3 @@ const auth = (...roles) => {
     };
 };
 exports.auth = auth;
-//# sourceMappingURL=auth.js.map

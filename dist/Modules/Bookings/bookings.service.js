@@ -242,4 +242,3 @@ const updateBookingRoleBasedService = async (bookingId, status, role) => {
     return [];
 };
 exports.BookingServices = { updateBookingRoleBasedService, createBookingsIntoDb, adminAndUserViewingService };
-//# sourceMappingURL=bookings.service.js.map

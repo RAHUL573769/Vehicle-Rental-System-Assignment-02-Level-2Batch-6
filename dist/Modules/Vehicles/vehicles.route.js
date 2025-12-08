@@ -15,4 +15,3 @@ router.get("/:id", vehicles_controllers_1.VehicleController.getSingleVehicles);
 router.put("/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.updateVehicles);
 router.delete("/:vehicleId", (0, auth_1.auth)(auth_types_1.UserRoles.admin), vehicles_controllers_1.VehicleController.deleteVehicles);
 exports.VehicleRoute = router;
-//# sourceMappingURL=vehicles.route.js.map

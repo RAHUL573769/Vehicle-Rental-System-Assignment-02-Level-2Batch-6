@@ -138,4 +138,3 @@ const deleteVehicles = async (req, res) => {
     });
 };
 exports.VehicleController = { createVehicles, getSingleVehicles, getVehicles, updateVehicles, deleteVehicles };
-//# sourceMappingURL=vehicles.controllers.js.map

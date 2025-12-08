@@ -101,4 +101,3 @@ exports.AuthServices = { loginIntoDb, signUpIntoDb };
 //     }
 //   }
 // }
-//# sourceMappingURL=auth.service.js.map

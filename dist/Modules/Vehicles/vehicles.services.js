@@ -43,4 +43,3 @@ const deleteVehiclesFromDb = async (deleteQuery, id) => {
     return result.rows[0];
 };
 exports.VehicleServices = { createVehiclesIntoDb, getSingleVehicleFromDb, getVehiclesFromDb, deleteVehiclesFromDb, updateVehiclesInDb };
-//# sourceMappingURL=vehicles.services.js.map

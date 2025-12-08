@@ -115,4 +115,3 @@ const deleteVehicles = async (req, res) => {
     });
 };
 exports.UserController = { AdminOrOwnProfile, createUser, getUsers, getSpecificUsers, updateUsers, deleteVehicles };
-//# sourceMappingURL=user.controller.js.map

@@ -22,4 +22,3 @@ app.use("/api/v1/bookings", booking_route_1.BookingRoute);
 app.listen(config_1.default.PORT, () => {
     console.log(`Example app listening on port ${config_1.default.PORT}`);
 });
-//# sourceMappingURL=server.js.map

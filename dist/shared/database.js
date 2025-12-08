@@ -45,4 +45,3 @@ const initDb = async () => {
   `);
 };
 exports.initDb = initDb;
-//# sourceMappingURL=database.js.map

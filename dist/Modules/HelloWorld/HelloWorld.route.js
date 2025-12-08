@@ -13,4 +13,3 @@ router.get('/', (req, res) => {
     });
 });
 exports.HelloWorldRouter = router;
-//# sourceMappingURL=HelloWorld.route.js.map

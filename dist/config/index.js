@@ -12,4 +12,3 @@ exports.default = {
     JWT_SECRET: process.env.JWT_SECRET,
     EXPIRES_IN: process.env.EXPIRES_IN
 };
-//# sourceMappingURL=index.js.map

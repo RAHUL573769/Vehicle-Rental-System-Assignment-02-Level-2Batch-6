@@ -15,4 +15,3 @@ router.get("/:id", user_controller_1.UserController.getSpecificUsers);
 router.put('/:userId', (0, auth_1.auth)(auth_types_1.UserRoles.admin), user_controller_1.UserController.AdminOrOwnProfile);
 router.delete("/:id", (0, auth_1.auth)(auth_types_1.UserRoles.admin), user_controller_1.UserController.deleteVehicles);
 exports.UserRoute = router;
-//# sourceMappingURL=user.route.js.map

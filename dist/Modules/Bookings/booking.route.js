@@ -13,4 +13,3 @@ router.post("/", (0, auth_1.auth)(auth_types_1.UserRoles.admin, auth_types_1.Use
 router.get('/', (0, auth_1.auth)("admin", "customer"), bookings_controller_1.BookingsController.adminAndUserView);
 router.put('/:bookingId', (0, auth_1.auth)("admin", "customer"), bookings_controller_1.BookingsController.updateBookingById);
 exports.BookingRoute = router;
-//# sourceMappingURL=booking.route.js.map
