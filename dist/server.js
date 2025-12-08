@@ -17,7 +17,7 @@ app.use("/", HelloWorld_route_1.HelloWorldRouter);
 app.use("/api/v1/auth/", auth_route_1.AuthRoute);
 app.use("/api/v1/vehicles", vehicles_route_1.VehicleRoute);
 app.use("/api/v1/users", user_route_1.UserRoute);
-app.use("/api", booking_route_1.BookingRoute);
+app.use("/api/v1/bookings", booking_route_1.BookingRoute);
 (0, database_1.initDb)();
 app.use((req, res) => {
     res.status(404).json({

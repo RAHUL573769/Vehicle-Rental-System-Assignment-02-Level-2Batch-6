@@ -20,5 +20,37 @@ const createBookings = async (req, res) => {
         });
     }
 };
-exports.BookingsController = { createBookings };
+const adminAndUserView = async (req, res) => {
+    const { role, id } = req.user;
+    console.log("26", role, id);
+    try {
+        const result = await bookings_service_1.BookingServices.adminAndUserViewingService(role, id);
+        res.status(200).json({
+            success: true,
+            message: "Bookings retrieved successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+const updateBookingById = async (req, res) => {
+    const { bookingId } = req.params;
+    const { role } = req.user;
+    const { status } = req.body;
+    console.log('43', req.body);
+    try {
+        const result = await bookings_service_1.BookingServices.updateBookingRoleBasedService(bookingId, status, role);
+        res.status(200).json({
+            success: true,
+            message: "Booking updated successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+exports.BookingsController = { createBookings, adminAndUserView, updateBookingById };
 //# sourceMappingURL=bookings.controller.js.map

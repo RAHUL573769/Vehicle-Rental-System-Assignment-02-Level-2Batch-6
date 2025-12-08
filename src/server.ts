@@ -17,7 +17,7 @@ app.use("/api/v1/auth/", AuthRoute)
 app.use("/api/v1/vehicles", VehicleRoute)
 app.use("/api/v1/users", UserRoute)
 
-app.use("/api", BookingRoute)
+app.use("/api/v1/bookings", BookingRoute)
 
 
 
