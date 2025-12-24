@@ -44,4 +44,4 @@ GET /api/v1/vehicles POST /api/v1/vehicles GET
 
 Live API
 
-https://nodeproject-rose.vercel.app/
+https://vehicle-rental-system-three-ecru.vercel.app/
