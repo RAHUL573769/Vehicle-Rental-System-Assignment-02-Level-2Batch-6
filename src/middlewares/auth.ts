@@ -1,62 +1,47 @@
-import { NextFunction, Request, Response } from "express"
-import jwt, { JwtPayload } from 'jsonwebtoken';
+// src/middleware/auth.ts
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import config from "../config";
 
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res
+      .status(401)
+      .json({ success: false, message: "Authorization header missing" });
+  }
 
+  const parts = authHeader.split(" ");
 
-export const auth = (...roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction): any => {
-        try {
-            const header = req.headers.authorization;
+  const token = parts[1];
+  if (!token) {
+    return res.status(401).json({ success: false, message: "Token missing" });
+  }
 
-            if (!header || !header.startsWith("Bearer ")) {
-                return res.status(401).json({
-                    success: false,
-                    message: "Unauthorized: No token provided",
-                });
-            }
+  const secret = config.jwt_Key;
+  if (!secret) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Server configuration error" });
+  }
 
-            const token = header.split(" ")[1]; //
-            console.log("Token", token)
-            if (!token) {
-                return res.status(403).json({
-                    success: false,
-                    message: "Unauthorized: No token provided",
-                });
-            }
-
-            const decoded = jwt.verify(token, config.JWT_SECRET) as JwtPayload;
-
-            req.user = decoded;
-
-            // Role checking
-            if (roles.length > 0 && !roles.includes(decoded['role'])) {
-                return res.status(403).json({
-                    success: false,
-                    message: "Forbidden: You do not have permission",
-                });
-
-            }
-            next()
-
-        } catch (error: any) {
-            console.log(error.name)
-
-            if (error.name === "TokenExpiredError") {
-                return res.status(401).json({
-                    "success": false,
-                    "message": error.message,
-                    "errors": "Token Expired "
-                });
-
-            }
-            return res.status(401).json({
-                "success": false,
-                "message": error.message,
-                "errors": "Invalid or malformed token",
-            });
-
-        }
-
-    };
-};
+  try {
+    const decoded = jwt.verify(token, config.jwt_Key) as { id: string; role: string; name?: string };
+    (req as any).user = decoded as any;
+    next();
+  } catch (err: any) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Token expired" });
+    }
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({ success: false, message: "Invalid token" });
+    }
+    return res
+      .status(401)
+      .json({ success: false, message: "Token verification failed" });
+  }
+};  
