@@ -1,4 +1,4 @@
-Vehicle Rental System (Backend)
+Vehicle Rental System (Backend);
 
 A backend API built with Node.js, TypeScript, PostgreSQL, and JWT
 Authentication for managing vehicles, users, and rental bookings.
